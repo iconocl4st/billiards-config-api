@@ -24,6 +24,7 @@ int main(int argc, char **argv) {
 				RETURN_SUCCESS_WITH_DATA("Retrieved current configuration", "config", configuration);
 			} else if (req.method == "PUT"_method) {
 				nlohmann::json value = nlohmann::json::parse(req.body);
+				std::cout << value.dump() << std::endl;
 				configuration.parse(value);
 				RETURN_SUCCESS("Loaded configuration");
 			} else {
