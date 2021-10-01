@@ -19,10 +19,8 @@ namespace billiards::config {
 			writer.end_object();
 		};
 
-		void parse(const nlohmann::json& value) override {
-			if (value.contains("table") && value["table"].is_object()) {
-				table.parse(value["table"]);
-			}
+		void parse(const nlohmann::json& value, json::ParseResult& status) override {
+			REQUIRE_CHILD(status, value, "table", table, "Configuration must have a table");
 		};
 	};
 }

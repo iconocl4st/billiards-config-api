@@ -26,7 +26,15 @@ int main(int argc, char **argv) {
 				RETURN_SUCCESS_WITH_DATA("Retrieved current configuration", "config", configuration);
 			} else if (req.method == "PUT"_method) {
 				nlohmann::json value = nlohmann::json::parse(req.body);
-				configuration.parse(value);
+				billiards::json::ParseResult result;
+				if (HAS_OBJECT(value, "config")) {
+					configuration.parse(value, result);
+				} else {
+					RETURN_ERROR("No config provided");
+				}
+				if (!result.success) {
+					RETURN_ERROR("Unable to parse config");
+				}
 				RETURN_SUCCESS("Loaded configuration");
 			} else {
 				return crow::response(404);
