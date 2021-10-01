@@ -2,11 +2,11 @@
 // Created by thallock on 9/14/21.
 //
 
-#include "common/3rd_party/crow_all.h"
-#include "common/utils/crow_common.h"
-#include "common/config/ports.h"
+#include "billiards_common/3rd_party/crow_all.h"
+#include "billiards_common/utils/crow_common.h"
+#include "billiards_common/config/ports.h"
 
-#include "./Configuration.h"
+#include "Configuration.h"
 
 
 int main(int argc, char **argv) {

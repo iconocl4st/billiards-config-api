@@ -5,7 +5,7 @@
 #ifndef IDEA_CONFIGURATION_H
 #define IDEA_CONFIGURATION_H
 
-#include "common/config/Table.h"
+#include "billiards_common/config/Table.h"
 
 namespace billiards::config {
 	class Configuration : public json::Serializable {
