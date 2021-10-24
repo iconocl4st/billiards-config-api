@@ -28,11 +28,13 @@ int main(int argc, char **argv) {
 				nlohmann::json value = nlohmann::json::parse(req.body);
 				billiards::json::ParseResult result;
 				if (HAS_OBJECT(value, "config")) {
-					configuration.parse(value, result);
+					configuration.parse(value["config"], result);
 				} else {
 					RETURN_ERROR("No config provided");
 				}
 				if (!result.success) {
+					std::cerr << "Invalid request" << std::endl;
+					std::cerr << result.error_msg.str() << std::endl;
 					RETURN_ERROR("Unable to parse config");
 				}
 				RETURN_SUCCESS("Loaded configuration");
