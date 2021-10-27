@@ -10,6 +10,7 @@
 namespace billiards::config {
 	class Configuration : public json::Serializable {
 	public:
+        // Put the urls of the api's things in here...
 		Table table;
 
 		void to_json(json::SaxWriter& writer) const override {
