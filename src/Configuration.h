@@ -16,19 +16,19 @@ namespace billiards::config {
         // Put the urls of the api's things in here...
 		Table table;
         std::string default_ip;
-        std::array<ApiUrl, 7> urls;
+        std::array<ApiUrl, 6> urls;
 
         Configuration()
             : table{}
             , default_ip{get_default_host()}
             , urls{
-                // ApiUrl{get_default_host(), CONFIG_API_PORT},
-                ApiUrl{"projector-api", default_ip, ports::PROJECTOR_API_PORT},
-                ApiUrl{"shots-api", default_ip, ports::SHOTS_API_PORT},
-                ApiUrl{"graphics-api", default_ip, ports::GRAPHICS_API_PORT},
-                ApiUrl{"layouts-api", default_ip, ports::LAYOUTS_API_PORT},
-                ApiUrl{"images-api", default_ip, ports::IMAGE_API_PORT},
-                ApiUrl{"attempts-api", default_ip, ports::ATTEMPTS_API_PORT},
+                // ApiUrl{"Config", get_default_host(), CONFIG_API_PORT},
+                ApiUrl{"Projector", default_ip, ports::PROJECTOR_API_PORT},
+                ApiUrl{"Shots", default_ip, ports::SHOTS_API_PORT},
+                ApiUrl{"Graphics", default_ip, ports::GRAPHICS_API_PORT},
+                ApiUrl{"Layouts", default_ip, ports::LAYOUTS_API_PORT},
+                ApiUrl{"Images", default_ip, ports::IMAGE_API_PORT},
+                ApiUrl{"Attempts", default_ip, ports::ATTEMPTS_API_PORT},
             }
         {}
 

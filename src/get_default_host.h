@@ -6,10 +6,10 @@
 #define IDEA_GET_DEFAULT_HOST_H
 
 #include <cstdio>
+#include <cstring>
 #include <sys/types.h>
 #include <ifaddrs.h>
 #include <netinet/in.h>
-#include <cstring>
 #include <arpa/inet.h>
 
 namespace billiards::config {
