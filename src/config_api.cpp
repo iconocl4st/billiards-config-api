@@ -4,7 +4,8 @@
 
 #include "billiards_common/3rd_party/crow_all.h"
 #include "billiards_common/utils/crow_common.h"
-#include "billiards_common/config/ports.h"
+
+#include "get_default_host.h"
 
 #include "Configuration.h"
 #include "billiards_common/utils/SerializableCache.h"
@@ -13,7 +14,7 @@ int main(int argc, char **argv) {
     // Could read as arg...
     // Could use /app/ ...
 
-    std::string config_location{"./files/config.json"};
+    std::string config_location{"./config.json"};
     for (int i = 0; i < argc - 1; i++) {
         if ("--config-file" == std::string{argv[i]} || "-f" == std::string{argv[i]}) {
             config_location = argv[i+1];
