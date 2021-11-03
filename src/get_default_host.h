@@ -11,6 +11,7 @@
 #include <ifaddrs.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <map>
 
 namespace billiards::config {
 
@@ -29,8 +30,12 @@ namespace billiards::config {
 
         getifaddrs(&ifAddrStruct);
 
-        std::string ret_val{"127.0.0.1"};
-        std::string desired_prefix{"10.0.0."};
+        std::string ret_val{"localhost"};
+        int ret_prio = 0;
+
+        std::map<std::string, int> desired_prefixes;
+        //desired_prefixes["172."] = 1;
+        desired_prefixes["10.0.0."] = 2;
 
         for (ifa = ifAddrStruct; ifa != nullptr; ifa = ifa->ifa_next) {
             if (!ifa->ifa_addr) {
@@ -43,9 +48,13 @@ namespace billiards::config {
                 addressBuffer[INET_ADDRSTRLEN] = 0;
                 inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
                 std::string tmp_ip{addressBuffer};
-                if (!tmp_ip.compare(0, desired_prefix.size(), desired_prefix)) {
-                    ret_val = addressBuffer;
-                    std::cout << "Using ip = " << ret_val << std::endl;
+                for (const auto& it : desired_prefixes) {
+                    const std::string& desired_prefix = it.first;
+                    const int& prio = it.second;
+                    if (!tmp_ip.compare(0, desired_prefix.size(), desired_prefix) && prio > ret_prio) {
+                        ret_val = addressBuffer;
+                        ret_prio = prio;
+                    }
                 }
             } else if (ifa->ifa_addr->sa_family == AF_INET6) {
                 // is a valid IP6 Address
@@ -58,6 +67,8 @@ namespace billiards::config {
         if (ifAddrStruct != nullptr) {
             freeifaddrs(ifAddrStruct);
         }
+
+        std::cout << "Returning ip = " << ret_val << std::endl;
         return ret_val;
     }
 }

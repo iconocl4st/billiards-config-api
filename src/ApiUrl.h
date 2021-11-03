@@ -22,7 +22,7 @@ namespace billiards::config {
             , url{}
         {
             std::stringstream ss;
-            ss << host << ":" << port << "/";
+            ss << "http://" << host << ":" << port << "/";
             url = ss.str();
         }
 
