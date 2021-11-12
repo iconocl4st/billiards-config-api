@@ -23,6 +23,7 @@ int main(int argc, char **argv) {
     }
 
     billiards::json::SerializableCache<billiards::config::Configuration> cache{config_location};
+    cache.reload();
 
 	crow::SimpleApp app;
 
