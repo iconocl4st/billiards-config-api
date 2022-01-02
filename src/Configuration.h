@@ -6,20 +6,19 @@
 #define IDEA_CONFIGURATION_H
 
 #include "billiards_common/config/ports.h"
-#include "billiards_common/config/Table.h"
+#include "billiards_common/config/PoolConfiguration.h"
 #include "ApiUrl.h"
 #include "get_default_host.h"
 
 namespace billiards::config {
 	class Configuration : public json::Serializable {
 	public:
-        // Put the urls of the api's things in here...
-		Table table;
+		PoolConfiguration pool_info;
         std::string default_ip;
         std::array<ApiUrl, 6> urls;
 
         Configuration()
-            : table{}
+            : pool_info{}
             , default_ip{get_default_host()}
             , urls{
                 // ApiUrl{"Config", get_default_host(), CONFIG_API_PORT},
@@ -35,8 +34,8 @@ namespace billiards::config {
 		void to_json(json::SaxWriter& writer) const override {
 			writer.begin_object();
 
-			writer.key("table");
-			table.to_json(writer);
+			writer.key("pool-config");
+			pool_info.to_json(writer);
 
             writer.key("urls");
             writer.begin_array();
@@ -49,8 +48,8 @@ namespace billiards::config {
 		};
 
 		void parse(const nlohmann::json& value, json::ParseResult& status) override {
-            if (HAS_OBJECT(value, "table")) {
-                PARSE_CHILD(status, value["table"], table);
+            if (HAS_OBJECT(value, "pool-config")) {
+                PARSE_CHILD(status, value["pool-config"], pool_info);
             }
             if (HAS_ARRAY(value, "urls")) {
                 if (value["urls"].size() != urls.size()) {

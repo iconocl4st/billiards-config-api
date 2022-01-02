@@ -8,9 +8,9 @@ find_package(Threads REQUIRED)
 find_package(Boost COMPONENTS system REQUIRED)
 
 add_executable(
-        config_api
+	config_api
 
-		${CMAKE_CURRENT_SOURCE_DIR}/src/config_api.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/config_api.cpp
 )
 
 target_include_directories(
